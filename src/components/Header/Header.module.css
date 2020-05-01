@@ -1,0 +1,17 @@
+.navList {
+  min-height: 80px;
+  display: flex;
+  align-items: center;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  box-shadow: 5px 5px 15px;
+}
+
+.navItem {
+  padding: 0 20px;
+}
+
+.header {
+  margin-bottom: 20px;
+}

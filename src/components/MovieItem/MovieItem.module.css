@@ -1,0 +1,11 @@
+.article {
+  display: flex;
+}
+
+.image {
+  width: 300px;
+}
+
+.container {
+  padding: 0 10px 0 20px;
+}
