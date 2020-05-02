@@ -1,0 +1,32 @@
+.filmList {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.filmItem {
+  width: 300px;
+  margin: 10px;
+  text-align: center;
+  transition: all 0.3s ease-in-out;
+}
+
+.title {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  padding-right: 5px;
+  padding-top: 5px;
+}
+
+.link {
+  text-decoration: none;
+  color: #000;
+}
+
+.filmItem:hover {
+  transform: scale(1.01);
+}

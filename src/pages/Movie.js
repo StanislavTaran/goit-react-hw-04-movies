@@ -1,5 +1,6 @@
 // import React, { Component } from 'react';
 // import Movie from '../components/MovieItem/MovieItem';
+// import Button from '../components/Button/Button';
 // import * as filmsAPI from '../services/fetchFilmsAPI';
 
 // const getIdFromProps = props => props.match.params.movieId;
@@ -16,9 +17,11 @@
 
 //   handleGoBack = () => {
 //     const { history, location } = this.props;
-//     history.push(
-//       `${location.state.from.pathname}${location.state.from.search}`,
-//     );
+//     const searchQuery = location.state.from.search;
+//     if (searchQuery) {
+//       return history.push(`${location.state.from.pathname}${searchQuery}`);
+//     }
+//     return history.push(`${location.state.from.pathname}`);
 //   };
 
 //   render() {
@@ -32,6 +35,7 @@
 
 //     return (
 //       <div>
+//         <Button title="Back to movies" onClick={this.handleGoBack} />
 //         <Movie
 //           title={original_title}
 //           image={poster_path}
@@ -40,9 +44,6 @@
 //           genres={genres}
 //           onGoBack={this.handleGoBack}
 //         />
-//         <button type="button" onClick={this.handleGoBack}>
-//           Back to articles
-//         </button>
 //       </div>
 //     );
 //   }
