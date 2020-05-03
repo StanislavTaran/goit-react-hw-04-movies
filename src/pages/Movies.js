@@ -1,10 +1,23 @@
 import React, { Component } from 'react';
+import ReactRouterPropTypes from 'react-router-prop-types';
 import queryString from 'query-string';
 import * as filmsAPI from '../services/fetchFilmsAPI';
 import FilmList from '../components/FilmList/FilmList';
+import Input from '../components/Input/Input';
 
 const getSearchQueryfromLocation = location =>
   queryString.parse(location.search).query;
+
+// const mapper = items => {
+//   return items.map(item => {
+//     return {
+//       title: item.original_title,
+//       image: item.poster_path,
+//       genres: item.genres,
+//       overview: item.overview,
+//     };
+//   });
+// };
 
 export default class Movies extends Component {
   state = {
@@ -52,7 +65,7 @@ export default class Movies extends Component {
     return (
       <>
         <form onSubmit={this.handleSubmit}>
-          <input
+          <Input
             type="text"
             value={searchQuery}
             onChange={this.handleChangeQuery}
@@ -65,3 +78,8 @@ export default class Movies extends Component {
     );
   }
 }
+
+Movies.propTypes = {
+  history: ReactRouterPropTypes.history.isRequired,
+  location: ReactRouterPropTypes.location.isRequired,
+};
