@@ -1,3 +1,22 @@
 .avatar {
+  height: 150px;
+}
+
+.castList {
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+}
+
+.castItem {
   width: 100px;
+  margin: 5px;
+}
+
+.name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  padding-right: 5px;
+  padding-top: 5px;
 }

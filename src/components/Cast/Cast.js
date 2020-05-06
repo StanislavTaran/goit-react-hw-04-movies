@@ -1,37 +1,47 @@
-import React from 'react';
-import propTypes from 'prop-types';
+import React, { Component } from 'react';
 import styles from './Cast.module.css';
+import defaultValues from '../../services/defaultPoster';
+import * as filmsAPI from '../../services/fetchFilmsAPI';
 
-const Cast = ({ items }) => {
-  return items.length > 0 ? (
-    <ul>
-      {items.map(item => (
-        <li key={item.id}>
-          <img
-            src={`https://image.tmdb.org/t/p/w300${item.profile_path}`}
-            alt={item.name}
-            className={styles.avatar}
-          />
-          <p>{item.name}</p>
-        </li>
-      ))}
-    </ul>
-  ) : (
-    'No data yet'
-  );
-};
+export default class Cast extends Component {
+  state = {
+    cast: [],
+  };
 
-Cast.defaultProps = {
-  items: [],
-};
+  componentDidMount() {
+    const id = this.props.match.params.movieId;
 
-Cast.propTypes = {
-  items: propTypes.arrayOf(
-    propTypes.shape({
-      name: propTypes.string.isRequired,
-      profile_path: propTypes.string.isRequired,
-    }),
-  ),
-};
+    filmsAPI.fetchActors(id).then(data =>
+      this.setState({
+        cast: data.cast,
+      }),
+    );
+  }
 
-export default Cast;
+  render() {
+    const { cast } = this.state;
+
+    return cast.length > 0 ? (
+      <div>
+        <ul className={styles.castList}>
+          {cast.map(item => (
+            <li key={item.id} className={styles.castItem} title={item.name}>
+              <img
+                src={
+                  item.profile_path
+                    ? `https://image.tmdb.org/t/p/w300${item.profile_path}`
+                    : defaultValues.avatar
+                }
+                alt={item.name}
+                className={styles.avatar}
+              />
+              <p className={styles.name}>{item.name}</p>
+            </li>
+          ))}
+        </ul>
+      </div>
+    ) : (
+      <span>No data yet</span>
+    );
+  }
+}

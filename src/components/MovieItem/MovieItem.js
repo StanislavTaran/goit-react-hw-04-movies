@@ -1,14 +1,17 @@
 import React from 'react';
 import propTypes from 'prop-types';
-import defaultPosterURL from '../../services/defaultPoster';
+import { NavLink, withRouter } from 'react-router-dom';
+import ReactRouterPropTypes from 'react-router-prop-types';
+import defaultValues from '../../services/defaultPoster';
 import styles from './MovieItem.module.css';
 
 const defaultText = 'no information available';
 
-const Movie = ({ title, image, score, overview, genres }) => {
+const Movie = ({ title, image, score, overview, genres, match, location }) => {
   const posterURL = image
     ? `https://image.tmdb.org/t/p/w300${image}`
-    : defaultPosterURL;
+    : defaultValues.poster;
+
   return (
     <article className={styles.article}>
       <div className={styles.container}>
@@ -26,6 +29,23 @@ const Movie = ({ title, image, score, overview, genres }) => {
               return <span> {item.name} </span>;
             })}
         </p>
+        <NavLink
+          className={styles.link}
+          activeClassName={styles.activeLink}
+          to={`${match.url}/cast`}
+        >
+          Cast
+        </NavLink>
+        <NavLink
+          className={styles.link}
+          activeClassName={styles.activeLink}
+          to={{
+            pathname: `${match.url}/reviews`,
+            state: { from: location },
+          }}
+        >
+          Reviews
+        </NavLink>
       </div>
     </article>
   );
@@ -41,6 +61,8 @@ Movie.propTypes = {
       name: propTypes.string.isRequired,
     }),
   ).isRequired,
+  match: ReactRouterPropTypes.match.isRequired,
+  location: ReactRouterPropTypes.location.isRequired,
 };
 
-export default Movie;
+export default withRouter(Movie);

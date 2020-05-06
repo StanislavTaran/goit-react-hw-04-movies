@@ -10,3 +10,16 @@
   padding: 0 10px 0 20px;
   min-width: 300px;
 }
+
+.link {
+  padding: 10px;
+  margin: 0 10px;
+  background-color: rgb(35, 19, 128);
+  color: #fff;
+  text-decoration: none;
+}
+
+.activeLink {
+  composes: link;
+  background-color: rgb(59, 21, 94);
+}

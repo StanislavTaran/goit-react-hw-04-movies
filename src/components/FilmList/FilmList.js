@@ -1,7 +1,8 @@
 import React from 'react';
+import ReactRouterPropTypes from 'react-router-prop-types';
 import propTypes from 'prop-types';
 import { Link, withRouter } from 'react-router-dom';
-import defaultPosterURL from '../../services/defaultPoster';
+import defaultValues from '../../services/defaultPoster';
 import styles from './FilmList.module.css';
 
 const FilmList = ({ items, location }) => {
@@ -10,7 +11,7 @@ const FilmList = ({ items, location }) => {
       {items.map(item => {
         const imageUrl = item.poster_path
           ? `https://image.tmdb.org/t/p/w300${item.poster_path}`
-          : defaultPosterURL;
+          : defaultValues.poster;
         return (
           <li className={styles.filmItem} key={item.id}>
             <Link
@@ -31,7 +32,7 @@ const FilmList = ({ items, location }) => {
 
 FilmList.propTypes = {
   items: propTypes.arrayOf(propTypes.object).isRequired,
-  location: propTypes.arrayOf(propTypes.object).isRequired,
+  location: ReactRouterPropTypes.location.isRequired,
 };
 
 export default withRouter(FilmList);

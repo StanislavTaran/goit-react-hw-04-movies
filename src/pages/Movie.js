@@ -1,5 +1,6 @@
 /* eslint-disable camelcase */
 import React, { Component } from 'react';
+import { Switch, Route } from 'react-router-dom';
 import ReactRouterPropTypes from 'react-router-prop-types';
 import Movie from '../components/MovieItem/MovieItem';
 import Button from '../components/Button/Button';
@@ -12,10 +13,6 @@ const getIdFromProps = props => props.match.params.movieId;
 export default class MoviePage extends Component {
   state = {
     movie: {},
-    isVisibleActors: false,
-    isVisibleReviews: false,
-    reviews: [],
-    cast: [],
   };
 
   componentDidMount() {
@@ -27,53 +24,14 @@ export default class MoviePage extends Component {
 
   handleGoBack = () => {
     const { history, location } = this.props;
-    const searchQuery = location.state.from.search;
 
-    if (searchQuery) {
-      history.push(`${location.state.from.pathname}${searchQuery}`);
-    } else if (location.state) {
-      history.push(`${location.state.from.pathname}`); // state ???
+    if (location.state) {
+      history.push(
+        `${location.state.from.pathname}${location.state.from.search}`,
+      );
+    } else {
+      history.push(`/`);
     }
-  };
-
-  handleOpenReviews = () => {
-    const { movie, isVisibleReviews } = this.state;
-    const { history, location } = this.props;
-
-    if (isVisibleReviews) {
-      return this.setState({
-        isVisibleReviews: false,
-      });
-    }
-
-    filmsAPI.fetchReviews(movie.id).then(
-      data =>
-        this.setState({
-          isVisibleReviews: true,
-          reviews: data.results,
-        }),
-      history.push(`${location.pathname}/reviews`),
-    );
-  };
-
-  handleOpenCast = () => {
-    const { movie, isVisibleActors } = this.state;
-    const { history, location } = this.props;
-
-    if (isVisibleActors) {
-      return this.setState({
-        isVisibleActors: false,
-      });
-    }
-
-    filmsAPI.fetchActors(movie.id).then(
-      data =>
-        this.setState({
-          isVisibleActors: true,
-          cast: data.cast,
-        }),
-      history.push(`${location.pathname}/cast`),
-    );
   };
 
   render() {
@@ -85,7 +43,6 @@ export default class MoviePage extends Component {
       overview,
     } = this.state.movie;
 
-    const { isVisibleActors, isVisibleReviews, reviews, cast } = this.state;
     return (
       <article>
         <Button title="Back to movies" onClick={this.handleGoBack} />
@@ -97,14 +54,11 @@ export default class MoviePage extends Component {
           genres={genres}
           onGoBack={this.handleGoBack}
         />
-        <button type="button" onClick={this.handleOpenReviews}>
-          {isVisibleReviews ? ` Hide reviews` : `Show reviews`}
-        </button>
-        <button type="button" onClick={this.handleOpenCast}>
-          {isVisibleActors ? ` Hide cast` : `Show cast`}
-        </button>
-        {isVisibleReviews && <Reviews items={reviews} />}
-        {isVisibleActors && <Cast items={cast} />}
+
+        <Switch>
+          <Route path="/movies/:movieId/cast" component={Cast} />
+          <Route path="/movies/:movieId/reviews" component={Reviews} />
+        </Switch>
       </article>
     );
   }
