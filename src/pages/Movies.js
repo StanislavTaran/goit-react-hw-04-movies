@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import ReactRouterPropTypes from 'react-router-prop-types';
 import queryString from 'query-string';
 import * as filmsAPI from '../services/fetchFilmsAPI';
-import FilmList from '../components/FilmList/FilmList';
+import FilmList from '../components/MovieList/MovieList';
 import Input from '../components/Input/Input';
 
 const getSearchQueryfromLocation = location =>

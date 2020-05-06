@@ -3,7 +3,7 @@ import propTypes from 'prop-types';
 import { NavLink, withRouter } from 'react-router-dom';
 import ReactRouterPropTypes from 'react-router-prop-types';
 import defaultValues from '../../services/defaultPoster';
-import styles from './MovieItem.module.css';
+import styles from './MovieInfo.module.css';
 
 const defaultText = 'no information available';
 

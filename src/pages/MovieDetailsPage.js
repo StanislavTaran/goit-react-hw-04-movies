@@ -1,14 +1,17 @@
 /* eslint-disable camelcase */
-import React, { Component } from 'react';
+import React, { Component, Suspense, lazy } from 'react';
 import { Switch, Route } from 'react-router-dom';
 import ReactRouterPropTypes from 'react-router-prop-types';
-import Movie from '../components/MovieItem/MovieItem';
+import Loader from 'react-loader-spinner';
+import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css';
+import Movie from '../components/MovieInfo/MovieInfo';
 import Button from '../components/Button/Button';
-import Reviews from '../components/Reviews/Reviews';
-import Cast from '../components/Cast/Cast';
 import * as filmsAPI from '../services/fetchFilmsAPI';
 
 const getIdFromProps = props => props.match.params.movieId;
+
+const Cast = lazy(() => import('../components/Cast/Cast'));
+const Reviews = lazy(() => import('../components/Reviews/Reviews'));
 
 export default class MoviePage extends Component {
   state = {
@@ -54,11 +57,16 @@ export default class MoviePage extends Component {
           genres={genres}
           onGoBack={this.handleGoBack}
         />
-
-        <Switch>
-          <Route path="/movies/:movieId/cast" component={Cast} />
-          <Route path="/movies/:movieId/reviews" component={Reviews} />
-        </Switch>
+        <Suspense
+          fallback={
+            <Loader type="ThreeDots" color="#ccc" width={80} height={80} />
+          }
+        >
+          <Switch>
+            <Route path="/movies/:movieId/cast" component={Cast} />
+            <Route path="/movies/:movieId/reviews" component={Reviews} />
+          </Switch>
+        </Suspense>
       </article>
     );
   }

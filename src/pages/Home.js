@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import * as filmsAPI from '../services/fetchFilmsAPI';
-import FilmList from '../components/FilmList/FilmList';
+import MovieList from '../components/MovieList/MovieList';
 
 export default class HomePage extends Component {
   state = {
@@ -18,6 +18,6 @@ export default class HomePage extends Component {
   render() {
     const { films } = this.state;
 
-    return <FilmList items={films} />;
+    return <MovieList items={films} />;
   }
 }

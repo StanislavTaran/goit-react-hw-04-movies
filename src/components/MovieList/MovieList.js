@@ -3,9 +3,9 @@ import ReactRouterPropTypes from 'react-router-prop-types';
 import propTypes from 'prop-types';
 import { Link, withRouter } from 'react-router-dom';
 import defaultValues from '../../services/defaultPoster';
-import styles from './FilmList.module.css';
+import styles from './MovieList.module.css';
 
-const FilmList = ({ items, location }) => {
+const MovieList = ({ items, location }) => {
   return (
     <ul className={styles.filmList}>
       {items.map(item => {
@@ -30,9 +30,9 @@ const FilmList = ({ items, location }) => {
   );
 };
 
-FilmList.propTypes = {
+MovieList.propTypes = {
   items: propTypes.arrayOf(propTypes.object).isRequired,
   location: ReactRouterPropTypes.location.isRequired,
 };
 
-export default withRouter(FilmList);
+export default withRouter(MovieList);

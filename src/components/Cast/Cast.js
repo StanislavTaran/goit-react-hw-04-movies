@@ -41,7 +41,7 @@ export default class Cast extends Component {
         </ul>
       </div>
     ) : (
-      <span>No data yet</span>
+      <p>No data yet</p>
     );
   }
 }
