@@ -15,6 +15,8 @@ export default class App extends Component {
         <Switch>
           <Route path="/" exact component={HomePage} />
           <Route path="/movies/:movieId" component={MoviePage} />
+          <Route path="/movies/:movieId/cast" component={MoviePage} />
+          <Route path="/movies/:movieId/reviews" component={MoviePage} />
           <Route path="/movies" component={MoviesPage} />
         </Switch>
       </>

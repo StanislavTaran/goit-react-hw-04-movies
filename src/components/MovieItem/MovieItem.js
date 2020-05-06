@@ -34,7 +34,7 @@ const Movie = ({ title, image, score, overview, genres }) => {
 Movie.propTypes = {
   title: propTypes.string.isRequired,
   image: propTypes.string.isRequired,
-  score: propTypes.string.isRequired,
+  score: propTypes.number.isRequired,
   overview: propTypes.string.isRequired,
   genres: propTypes.arrayOf(
     propTypes.shape({

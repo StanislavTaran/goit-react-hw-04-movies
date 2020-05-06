@@ -11,6 +11,7 @@
     "jest": true
   },
   "rules": {
+    "consistent-return": 0,
     "react/destructuring-assignment": 1,
     "react/jsx-one-expression-per-line": 0,
     "react/state-in-constructor": 0,

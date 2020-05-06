@@ -12,7 +12,7 @@ const FilmList = ({ items, location }) => {
           ? `https://image.tmdb.org/t/p/w300${item.poster_path}`
           : defaultPosterURL;
         return (
-          <li className={styles.filmItem}>
+          <li className={styles.filmItem} key={item.id}>
             <Link
               className={styles.link}
               to={{ pathname: `/movies/${item.id}`, state: { from: location } }}
@@ -30,7 +30,7 @@ const FilmList = ({ items, location }) => {
 };
 
 FilmList.propTypes = {
-  items: propTypes.arrayOf(propTypes.string).isRequired,
+  items: propTypes.arrayOf(propTypes.object).isRequired,
   location: propTypes.arrayOf(propTypes.object).isRequired,
 };
 
