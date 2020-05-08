@@ -1,0 +1,13 @@
+.author {
+  font-weight: 700;
+}
+
+.content {
+  font-weight: 400;
+}
+
+.reviewsList {
+  margin: 0 15px;
+  padding: 0 15px;
+  list-style-type: square;
+}

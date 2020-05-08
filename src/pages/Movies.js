@@ -8,17 +8,6 @@ import Input from '../components/Input/Input';
 const getSearchQueryfromLocation = location =>
   queryString.parse(location.search).query;
 
-// const mapper = items => {
-//   return items.map(item => {
-//     return {
-//       title: item.original_title,
-//       image: item.poster_path,
-//       genres: item.genres,
-//       overview: item.overview,
-//     };
-//   });
-// };
-
 export default class Movies extends Component {
   state = {
     searchQuery: '',

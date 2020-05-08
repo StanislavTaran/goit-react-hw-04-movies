@@ -2,12 +2,12 @@ import React from 'react';
 import propTypes from 'prop-types';
 import { NavLink, withRouter } from 'react-router-dom';
 import ReactRouterPropTypes from 'react-router-prop-types';
-import defaultValues from '../../services/defaultPoster';
+import defaultValues from '../../services/defaultValues';
 import styles from './MovieInfo.module.css';
 
 const defaultText = 'no information available';
 
-const Movie = ({ title, image, score, overview, genres, match, location }) => {
+const MovieInfo = ({ title, image, score, overview, genres, match }) => {
   const posterURL = image
     ? `https://image.tmdb.org/t/p/w300${image}`
     : defaultValues.poster;
@@ -26,7 +26,7 @@ const Movie = ({ title, image, score, overview, genres, match, location }) => {
         <p>
           {genres &&
             genres.map(item => {
-              return <span> {item.name} </span>;
+              return <span key={item.id}> {item.name} </span>;
             })}
         </p>
         <NavLink
@@ -39,10 +39,7 @@ const Movie = ({ title, image, score, overview, genres, match, location }) => {
         <NavLink
           className={styles.link}
           activeClassName={styles.activeLink}
-          to={{
-            pathname: `${match.url}/reviews`,
-            state: { from: location },
-          }}
+          to={`${match.url}/reviews`}
         >
           Reviews
         </NavLink>
@@ -51,18 +48,18 @@ const Movie = ({ title, image, score, overview, genres, match, location }) => {
   );
 };
 
-Movie.propTypes = {
+MovieInfo.propTypes = {
   title: propTypes.string.isRequired,
   image: propTypes.string.isRequired,
   score: propTypes.number.isRequired,
   overview: propTypes.string.isRequired,
   genres: propTypes.arrayOf(
     propTypes.shape({
+      id: propTypes.number.isRequired,
       name: propTypes.string.isRequired,
     }),
   ).isRequired,
   match: ReactRouterPropTypes.match.isRequired,
-  location: ReactRouterPropTypes.location.isRequired,
 };
 
-export default withRouter(Movie);
+export default withRouter(MovieInfo);

@@ -1,17 +1,13 @@
 /* eslint-disable camelcase */
-import React, { Component, Suspense, lazy } from 'react';
-import { Switch, Route } from 'react-router-dom';
+import React, { Component } from 'react';
 import ReactRouterPropTypes from 'react-router-prop-types';
-import Loader from 'react-loader-spinner';
 import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css';
 import Movie from '../components/MovieInfo/MovieInfo';
 import Button from '../components/Button/Button';
+import MovieRoute from '../Routes/MovieRoute';
 import * as filmsAPI from '../services/fetchFilmsAPI';
 
 const getIdFromProps = props => props.match.params.movieId;
-
-const Cast = lazy(() => import('../components/Cast/Cast'));
-const Reviews = lazy(() => import('../components/Reviews/Reviews'));
 
 export default class MoviePage extends Component {
   state = {
@@ -38,35 +34,20 @@ export default class MoviePage extends Component {
   };
 
   render() {
-    const {
-      original_title,
-      poster_path,
-      vote_average,
-      genres,
-      overview,
-    } = this.state.movie;
+    const { movie } = this.state;
 
     return (
       <article>
         <Button title="Back to movies" onClick={this.handleGoBack} />
         <Movie
-          title={original_title}
-          image={poster_path}
-          score={vote_average}
-          overview={overview}
-          genres={genres}
+          title={movie.original_title}
+          image={movie.poster_path}
+          score={movie.vote_average}
+          overview={movie.overview}
+          genres={movie.genres}
           onGoBack={this.handleGoBack}
         />
-        <Suspense
-          fallback={
-            <Loader type="ThreeDots" color="#ccc" width={80} height={80} />
-          }
-        >
-          <Switch>
-            <Route path="/movies/:movieId/cast" component={Cast} />
-            <Route path="/movies/:movieId/reviews" component={Reviews} />
-          </Switch>
-        </Suspense>
+        <MovieRoute />
       </article>
     );
   }

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import styles from './Reviews.module.css';
 import * as filmsAPI from '../../services/fetchFilmsAPI';
 
 export default class Reviews extends Component {
@@ -20,14 +21,14 @@ export default class Reviews extends Component {
     const { reviews } = this.state;
 
     return reviews.length > 0 ? (
-      <ul>
+      <ul className={styles.reviewsList}>
         {reviews.map(item => (
           <li key={item.id}>
             <hr />
             <p>
-              <b>{item.author}</b>
+              <b className={styles.author}>{item.author}</b>
             </p>
-            <p>{item.content}</p>
+            <p className={styles.content}>{item.content}</p>
           </li>
         ))}
       </ul>

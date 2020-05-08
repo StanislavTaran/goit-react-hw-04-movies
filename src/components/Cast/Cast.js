@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
+import ReactRouterPropTypes from 'react-router-prop-types';
 import styles from './Cast.module.css';
-import defaultValues from '../../services/defaultPoster';
+import defaultValues from '../../services/defaultValues';
 import * as filmsAPI from '../../services/fetchFilmsAPI';
 
 export default class Cast extends Component {
@@ -9,9 +10,10 @@ export default class Cast extends Component {
   };
 
   componentDidMount() {
-    const id = this.props.match.params.movieId;
+    // eslint-disable-next-line react/destructuring-assignment
+    const { movieId } = this.props.match.params;
 
-    filmsAPI.fetchActors(id).then(data =>
+    filmsAPI.fetchActors(movieId).then(data =>
       this.setState({
         cast: data.cast,
       }),
@@ -45,3 +47,7 @@ export default class Cast extends Component {
     );
   }
 }
+
+Cast.propTypes = {
+  match: ReactRouterPropTypes.match.isRequired,
+};

@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import axios from 'axios';
 
 const API_KEY = 'ce2e53f2d43a7725e8e24d3e43439afb';
@@ -12,7 +13,6 @@ export const fetchTrendingFilms = () => {
 export const fetchQueryFilms = query => {
   return axios
     .get(
-      // eslint-disable-next-line max-len
       `${BASE_URL}/search/movie?query=${query}&api_key=${API_KEY}&language=en-US&page=1&include_adult=false`,
     )
     .then(response => response.data);
