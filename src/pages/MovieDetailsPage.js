@@ -12,13 +12,19 @@ const getIdFromProps = props => props.match.params.movieId;
 export default class MoviePage extends Component {
   state = {
     movie: {},
+    errorMessage: null,
   };
 
   componentDidMount() {
     const id = getIdFromProps(this.props);
     filmsAPI
       .fetchFilmsWithId(id)
-      .then(items => this.setState({ movie: items }));
+      .then(items => this.setState({ movie: items }))
+      .catch(error =>
+        this.setState({
+          errorMessage: error.response.data.status_message,
+        }),
+      );
   }
 
   handleGoBack = () => {
@@ -34,9 +40,9 @@ export default class MoviePage extends Component {
   };
 
   render() {
-    const { movie } = this.state;
+    const { movie, errorMessage } = this.state;
 
-    return (
+    return !errorMessage ? (
       <article>
         <Button title="Back to movies" onClick={this.handleGoBack} />
         <Movie
@@ -49,6 +55,8 @@ export default class MoviePage extends Component {
         />
         <MovieRoute />
       </article>
+    ) : (
+      <h2>{errorMessage}</h2>
     );
   }
 }

@@ -12,6 +12,7 @@ export default class Movies extends Component {
   state = {
     searchQuery: '',
     films: [],
+    errorMessage: null,
   };
 
   componentDidMount() {
@@ -20,11 +21,18 @@ export default class Movies extends Component {
     const qsValue = getSearchQueryfromLocation(location);
 
     if (qsValue) {
-      filmsAPI.fetchQueryFilms(qsValue).then(data => {
-        this.setState({
-          films: data.results,
-        });
-      });
+      filmsAPI
+        .fetchQueryFilms(qsValue)
+        .then(data => {
+          this.setState({
+            films: data.results,
+          });
+        })
+        .catch(error =>
+          this.setState({
+            errorMessage: error.response.data.status_message,
+          }),
+        );
     }
   }
 
@@ -49,7 +57,7 @@ export default class Movies extends Component {
   };
 
   render() {
-    const { searchQuery, films } = this.state;
+    const { searchQuery, films, errorMessage } = this.state;
 
     return (
       <>
@@ -62,7 +70,11 @@ export default class Movies extends Component {
           />
         </form>
 
-        <FilmList items={films} />
+        {films.length > 0 ? (
+          <FilmList items={films} />
+        ) : (
+          <h2>{errorMessage || 'Movies not found, try something else'}</h2>
+        )}
       </>
     );
   }

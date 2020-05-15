@@ -1,16 +1,12 @@
-import React, { Component } from 'react';
+import React from 'react';
 import Header from './components/Header/Header';
 import PagesRoute from './Routes/PagesRoute';
 
-export default class App extends Component {
-  state = {};
+const App = () => (
+  <>
+    <Header />
+    <PagesRoute />
+  </>
+);
 
-  render() {
-    return (
-      <>
-        <Header />
-        <PagesRoute />
-      </>
-    );
-  }
-}
+export default App;

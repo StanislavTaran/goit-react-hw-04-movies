@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { NavLink } from 'react-router-dom';
 import styles from './Header.module.css';
 
@@ -17,34 +17,30 @@ const stylesForLInk = {
   },
 };
 
-export default class Header extends Component {
-  state = {};
+const Header = () => (
+  <header className={styles.header}>
+    <ul className={styles.navList}>
+      <li className={styles.navItem}>
+        <NavLink
+          to="/"
+          exact
+          style={stylesForLInk.link}
+          activeStyle={stylesForLInk.active}
+        >
+          Home
+        </NavLink>
+      </li>
+      <li className={styles.navItem}>
+        <NavLink
+          to="/movies"
+          style={stylesForLInk.link}
+          activeStyle={stylesForLInk.active}
+        >
+          Movies
+        </NavLink>
+      </li>
+    </ul>
+  </header>
+);
 
-  render() {
-    return (
-      <header className={styles.header}>
-        <ul className={styles.navList}>
-          <li className={styles.navItem}>
-            <NavLink
-              to="/"
-              exact
-              style={stylesForLInk.link}
-              activeStyle={stylesForLInk.active}
-            >
-              Home
-            </NavLink>
-          </li>
-          <li className={styles.navItem}>
-            <NavLink
-              to="/movies"
-              style={stylesForLInk.link}
-              activeStyle={stylesForLInk.active}
-            >
-              Movies
-            </NavLink>
-          </li>
-        </ul>
-      </header>
-    );
-  }
-}
+export default Header;

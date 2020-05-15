@@ -7,21 +7,28 @@ import * as filmsAPI from '../../services/fetchFilmsAPI';
 export default class Cast extends Component {
   state = {
     cast: [],
+    errorMessage: null,
   };
 
   componentDidMount() {
-    // eslint-disable-next-line react/destructuring-assignment
-    const { movieId } = this.props.match.params;
+    const { match } = this.props;
 
-    filmsAPI.fetchActors(movieId).then(data =>
-      this.setState({
-        cast: data.cast,
-      }),
-    );
+    filmsAPI
+      .fetchActors(match.params.movieId)
+      .then(data =>
+        this.setState({
+          cast: data.cast,
+        }),
+      )
+      .catch(error =>
+        this.setState({
+          errorMessage: error.response.data.status_message,
+        }),
+      );
   }
 
   render() {
-    const { cast } = this.state;
+    const { cast, errorMessage } = this.state;
 
     return cast.length > 0 ? (
       <div>
@@ -43,7 +50,7 @@ export default class Cast extends Component {
         </ul>
       </div>
     ) : (
-      <p>No data yet</p>
+      <p>{errorMessage || 'No data yet...('}</p>
     );
   }
 }

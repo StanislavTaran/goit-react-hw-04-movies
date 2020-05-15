@@ -1,24 +1,34 @@
 import React, { Component } from 'react';
+// import propTypes from 'prop-types';
+import ReactRouterPropTypes from 'react-router-prop-types';
 import styles from './Reviews.module.css';
 import * as filmsAPI from '../../services/fetchFilmsAPI';
 
 export default class Reviews extends Component {
   state = {
     reviews: [],
+    errorMessage: null,
   };
 
   componentDidMount() {
-    const id = this.props.match.params.movieId;
+    const { match } = this.props;
 
-    filmsAPI.fetchReviews(id).then(data =>
-      this.setState({
-        reviews: data.results,
-      }),
-    );
+    filmsAPI
+      .fetchReviews(match.params.movieId)
+      .then(data =>
+        this.setState({
+          reviews: data.results,
+        }),
+      )
+      .catch(error =>
+        this.setState({
+          errorMessage: error.response.data.status_message,
+        }),
+      );
   }
 
   render() {
-    const { reviews } = this.state;
+    const { reviews, errorMessage } = this.state;
 
     return reviews.length > 0 ? (
       <ul className={styles.reviewsList}>
@@ -33,7 +43,11 @@ export default class Reviews extends Component {
         ))}
       </ul>
     ) : (
-      <p>No reviews yet</p>
+      <p>{errorMessage || 'No reviews yet'}</p>
     );
   }
 }
+
+Reviews.propTypes = {
+  match: ReactRouterPropTypes.match.isRequired,
+};

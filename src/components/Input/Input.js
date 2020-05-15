@@ -15,14 +15,13 @@ const Input = ({ placeholder, type, value, onChange }) => (
 Input.defaultProps = {
   placeholder: null,
   type: 'text',
-  onChange: null,
 };
 
 Input.propTypes = {
   placeholder: propTypes.string,
   type: propTypes.string,
   value: propTypes.string.isRequired,
-  onChange: propTypes.func,
+  onChange: propTypes.func.isRequired,
 };
 
 export default Input;

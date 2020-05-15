@@ -32,7 +32,13 @@ const MovieList = ({ items, location }) => {
 };
 
 MovieList.propTypes = {
-  items: propTypes.arrayOf(propTypes.object).isRequired,
+  items: propTypes.arrayOf(
+    propTypes.shape({
+      poster_path: propTypes.string.isRequired,
+      id: propTypes.number.isRequired,
+      original_title: propTypes.string.isRequired,
+    }),
+  ).isRequired,
   location: ReactRouterPropTypes.location.isRequired,
 };
 
